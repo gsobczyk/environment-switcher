@@ -78,6 +78,9 @@ chrome.storage.sync.get('projects', function (data) {
                 if (i == 0) {
                     li.classList.add('first');
                 }
+                if (new URL(tab.url).pathname === new URL(link.url).pathname) {
+                    li.classList.add('active');
+                }
                 li.innerHTML = link.text;
                 items.push(li);
             }
@@ -118,7 +121,9 @@ chrome.storage.sync.get('projects', function (data) {
                     url = tab.url.replace(baseUrl, environmentBaseUrl);
                 }
                 else {
-                    url = item.getAttribute('data-url');
+                    var tmp = new URL(item.getAttribute('data-url'));
+                    tmp.hostname = new URL(tab.url).hostname;
+                    url = tmp.href;
                 }
 
                 navigate(url,  e.ctrlKey || e.button == 1);

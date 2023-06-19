@@ -9,7 +9,11 @@
   ],
   "dependencies": {
     "angular": "~1.5.2",
+    "jquery": "~2.2.2",
     "angular-route": "~1.5.2",
     "foundation": "~5.5.3"
+  },
+  "resolutions": {
+    "jquery": "~2.2.2"
   }
 }

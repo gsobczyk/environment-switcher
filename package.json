@@ -6,6 +6,9 @@
     "type": "git",
     "url": "git@github.com:Chi-teck/environment-switcher.git"
   },
+  "scripts": {
+    "build": "grunt"
+  },
   "devDependencies": {
     "grunt": "~0.4.5",
     "grunt-contrib-concat": "~1.0.0",
