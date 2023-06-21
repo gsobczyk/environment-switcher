@@ -73,7 +73,9 @@ chrome.storage.sync.get('projects', function (data) {
             for (i = 0; i < project.links.length; i++) {
                 var link = project.links[i];
                 li = document.createElement('li');
-                li.setAttribute('data-url', link.url);
+                var linkUrl = new URL(link.url);
+                linkUrl.hostname = new URL(baseUrl).hostname;
+                li.setAttribute('data-url', linkUrl.href);
                 li.setAttribute('class', 'link');
                 if (i == 0) {
                     li.classList.add('first');
@@ -97,7 +99,7 @@ chrome.storage.sync.get('projects', function (data) {
         if (project) {
             path += '#/project/' + project.id;
         }
-        li.setAttribute('data-url', chrome.extension.getURL(path));
+        li.setAttribute('data-url', chrome.runtime.getURL(path));
         li.setAttribute('class', 'options');
         li.innerHTML = 'Options';
         items.push(li);
@@ -121,9 +123,7 @@ chrome.storage.sync.get('projects', function (data) {
                     url = tab.url.replace(baseUrl, environmentBaseUrl);
                 }
                 else {
-                    var tmp = new URL(item.getAttribute('data-url'));
-                    tmp.hostname = new URL(tab.url).hostname;
-                    url = tmp.href;
+                    url = item.getAttribute('data-url');
                 }
 
                 navigate(url,  e.ctrlKey || e.button == 1);
